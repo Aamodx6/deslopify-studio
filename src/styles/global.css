@@ -858,4 +858,11 @@ textarea.form-control {
   .footer-col ul {
     align-items: center;
   }
+  .cal-frame {
+    height: auto !important;
+    min-height: 680px;
+  }
+  .cal-mid, .cal-inner {
+    height: auto !important;
+  }
 }

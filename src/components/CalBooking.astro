@@ -1,0 +1,999 @@
+---
+// Interactive Cal.com scheduling component matching reference 1:1
+---
+
+<div class="cal-widget" id="cal-widget">
+  <!-- View 1: Slot Selection (3-Column Layout) -->
+  <div class="cal-view-slots" id="cal-view-slots">
+    <!-- Column 1: Host & Event Metadata -->
+    <div class="cal-col-host">
+      <div class="cal-host-avatar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+          <circle cx="12" cy="12" r="10" fill="#201f32" />
+          <path d="M12 5l1.8 4.2 4.2 1.8-4.2 1.8L12 17l-1.8-4.2L6 11l4.2-1.8L12 5z" fill="#ffffff" />
+        </svg>
+      </div>
+      <p class="cal-host-name">Rehan Ahmed</p>
+      <h3 class="cal-meeting-title">15 Min Meeting</h3>
+
+      <div class="cal-meta-list">
+        <div class="cal-meta-item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span>15m</span>
+        </div>
+
+        <div class="cal-meta-item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15.6 11.6L22 7v10l-6.4-4.6v-0.8zM4 5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" />
+          </svg>
+          <span>Google Meet</span>
+        </div>
+
+        <div class="cal-meta-item cal-tz-wrapper">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <select id="cal-tz-select" class="cal-tz-select" aria-label="Select Timezone">
+            <option value="Asia/Kolkata" selected>Asia/Kolkata</option>
+            <option value="America/New_York">America/New York</option>
+            <option value="America/Los_Angeles">America/Los Angeles</option>
+            <option value="Europe/London">Europe/London</option>
+            <option value="Europe/Paris">Europe/Paris</option>
+            <option value="Asia/Dubai">Asia/Dubai</option>
+            <option value="Asia/Singapore">Asia/Singapore</option>
+            <option value="Asia/Tokyo">Asia/Tokyo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2: Interactive Month Calendar -->
+    <div class="cal-col-calendar">
+      <div class="cal-month-header">
+        <h4 id="cal-month-title">October 2026</h4>
+        <div class="cal-nav-buttons">
+          <button type="button" class="cal-nav-btn" id="cal-prev-month" aria-label="Previous month">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button type="button" class="cal-nav-btn" id="cal-next-month" aria-label="Next month">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="cal-weekdays">
+        <span>SUN</span>
+        <span>MON</span>
+        <span>TUE</span>
+        <span>WED</span>
+        <span>THU</span>
+        <span>FRI</span>
+        <span>SAT</span>
+      </div>
+
+      <div class="cal-days-grid" id="cal-days-grid">
+        <!-- Rendered via JavaScript for dynamic month support -->
+      </div>
+    </div>
+
+    <!-- Column 3: Available Time Slots -->
+    <div class="cal-col-slots">
+      <div class="cal-slots-header">
+        <h4 id="cal-selected-day-label">Mon 26th</h4>
+        <div class="cal-fmt-toggle">
+          <button type="button" class="fmt-opt active" data-fmt="12" id="fmt-12">12h</button>
+          <button type="button" class="fmt-opt" data-fmt="24" id="fmt-24">24h</button>
+        </div>
+      </div>
+
+      <div class="cal-slots-list" id="cal-slots-list">
+        <!-- Injected dynamically based on selected date & 12h/24h mode -->
+      </div>
+    </div>
+  </div>
+
+  <!-- View 2: Booking Form Modal (Shown when a slot is clicked) -->
+  <div class="cal-view-form" id="cal-view-form" style="display: none;">
+    <div class="cal-form-header">
+      <button type="button" class="cal-back-btn" id="cal-back-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+        Back to time slots
+      </button>
+      <div class="cal-form-title-group">
+        <h3>Confirm Your 15 Min Architecture Review</h3>
+        <p>With Rehan Ahmed &middot; Deslopify Studio Principal</p>
+      </div>
+      <div class="cal-selected-summary" id="cal-selected-summary">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        <span id="cal-summary-datetime">Monday, October 26, 2026 at 9:00 AM (Asia/Kolkata)</span>
+      </div>
+    </div>
+
+    <form class="cal-booking-form" id="cal-booking-form">
+      <div class="cal-form-row">
+        <label for="cal-input-name">Your Name *</label>
+        <input type="text" id="cal-input-name" required placeholder="e.g. Alex Rivera" />
+      </div>
+
+      <div class="cal-form-row">
+        <label for="cal-input-email">Your Work Email *</label>
+        <input type="email" id="cal-input-email" required placeholder="e.g. alex@company.io" />
+      </div>
+
+      <div class="cal-form-row">
+        <label for="cal-input-notes">What application or workflow are we reviewing?</label>
+        <textarea id="cal-input-notes" rows="3" placeholder="Paste Figma/GitHub link or brief summary of current bottlenecks..."></textarea>
+      </div>
+
+      <div class="cal-form-actions">
+        <button type="submit" class="cal-confirm-btn" id="cal-submit-btn">
+          <span>Confirm Booking</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- View 3: Success Screen (Shown after booking confirmation) -->
+  <div class="cal-view-success" id="cal-view-success" style="display: none;">
+    <div class="cal-success-icon">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#10b981" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+    <h3>Meeting Scheduled! 🎉</h3>
+    <p class="cal-success-desc">
+      A calendar invitation with Google Meet details has been sent to <strong id="cal-success-email">your email</strong>.
+    </p>
+    <div class="cal-success-card">
+      <div class="cal-sc-row">
+        <span class="cal-sc-label">Meeting:</span>
+        <span class="cal-sc-val">15 Min Architecture Review</span>
+      </div>
+      <div class="cal-sc-row">
+        <span class="cal-sc-label">Host:</span>
+        <span class="cal-sc-val">Rehan Ahmed (Deslopify Principal)</span>
+      </div>
+      <div class="cal-sc-row">
+        <span class="cal-sc-label">Time:</span>
+        <span class="cal-sc-val" id="cal-success-datetime">Monday, October 26, 2026 at 9:00 AM</span>
+      </div>
+      <div class="cal-sc-row">
+        <span class="cal-sc-label">Location:</span>
+        <span class="cal-sc-val" style="color: #2563eb; font-weight:600;">Google Meet (Link in invite)</span>
+      </div>
+    </div>
+    <button type="button" class="cal-reset-btn" id="cal-reset-btn">Schedule Another Meeting</button>
+  </div>
+
+  <!-- Branding Footer (Matches screenshot exactly) -->
+  <div class="cal-footer-brand">
+    <span>Cal.com</span>
+  </div>
+</div>
+
+<style>
+  .cal-widget {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: #ffffff;
+    font-family: var(--sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    color: #1f2937;
+    position: relative;
+    padding: 16px 20px 10px;
+    box-sizing: border-box;
+  }
+
+  .cal-view-slots {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    gap: 0;
+  }
+
+  /* Column 1: Host info */
+  .cal-col-host {
+    width: 210px;
+    flex-shrink: 0;
+    padding: 16px 20px 16px 8px;
+    border-right: 1px solid #f1f2f6;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cal-host-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+  }
+
+  .cal-host-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  .cal-meeting-title {
+    font-family: var(--jakarta, var(--sans));
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .cal-meta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 13.5px;
+    color: #4b5563;
+  }
+
+  .cal-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cal-meta-item svg {
+    color: #6b7280;
+    flex-shrink: 0;
+  }
+
+  .cal-tz-select {
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    padding: 2px 0;
+    outline: none;
+    max-width: 130px;
+  }
+
+  /* Column 2: Calendar */
+  .cal-col-calendar {
+    flex: 1.1;
+    min-width: 300px;
+    padding: 16px 24px;
+    border-right: 1px solid #f1f2f6;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cal-month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .cal-month-header h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .cal-nav-buttons {
+    display: flex;
+    gap: 6px;
+  }
+
+  .cal-nav-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: background 0.15s, color 0.15s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cal-nav-btn:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
+
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #6b7280;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .cal-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px 4px;
+    text-align: center;
+  }
+
+  :global(.cal-day-cell) {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #374151;
+    cursor: default;
+    position: relative;
+    user-select: none;
+  }
+
+  :global(.cal-day-cell.available) {
+    background: #eef0f4;
+    color: #111827;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+
+  :global(.cal-day-cell.available:hover) {
+    background: #e2e5eb;
+    transform: scale(1.04);
+  }
+
+  :global(.cal-day-cell.selected) {
+    background: #201f32 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 6px rgba(32, 31, 50, 0.25);
+  }
+
+  :global(.cal-day-cell.has-dot::after) {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background: #111827;
+  }
+
+  :global(.cal-month-divider) {
+    grid-column: span 7;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-align: left;
+    padding: 6px 4px 2px;
+    letter-spacing: 0.06em;
+  }
+
+  /* Column 3: Time slots */
+  .cal-col-slots {
+    width: 230px;
+    flex-shrink: 0;
+    padding: 16px 8px 16px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cal-slots-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .cal-slots-header h4 {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .cal-fmt-toggle {
+    display: inline-flex;
+    background: #f3f4f6;
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .fmt-opt {
+    border: none;
+    background: transparent;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .fmt-opt.active {
+    background: #ffffff;
+    color: #111827;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .cal-slots-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 6px;
+    max-height: 380px;
+  }
+
+  /* Custom Scrollbar for slots */
+  .cal-slots-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  .cal-slots-list::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+  }
+  .cal-slots-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+  }
+
+  :global(.cal-slot-btn) {
+    width: 100%;
+    padding: 9.5px 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1f2937;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s ease;
+  }
+
+  :global(.cal-slot-btn:hover) {
+    border-color: #262ef2;
+    background: #f5f7ff;
+    color: #262ef2;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(38, 46, 242, 0.08);
+  }
+
+  /* View 2: Booking Form */
+  .cal-view-form {
+    padding: 24px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .cal-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5563;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin-bottom: 16px;
+    padding: 4px 0;
+  }
+
+  .cal-back-btn:hover {
+    color: #111827;
+  }
+
+  .cal-form-title-group h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 4px;
+    font-family: var(--jakarta, var(--sans));
+  }
+
+  .cal-form-title-group p {
+    font-size: 13.5px;
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+
+  .cal-selected-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .cal-booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 520px;
+  }
+
+  .cal-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cal-form-row label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .cal-form-row input,
+  .cal-form-row textarea {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .cal-form-row input:focus,
+  .cal-form-row textarea:focus {
+    border-color: #262ef2;
+    box-shadow: 0 0 0 3px rgba(38, 46, 242, 0.12);
+  }
+
+  .cal-confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #201f32;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 6px;
+  }
+
+  .cal-confirm-btn:hover {
+    background: #111827;
+    transform: translateY(-1px);
+  }
+
+  /* View 3: Success Screen */
+  .cal-view-success {
+    padding: 40px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .cal-success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #d1fae5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .cal-view-success h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+
+  .cal-success-desc {
+    font-size: 14.5px;
+    color: #4b5563;
+    max-width: 440px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .cal-success-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px 24px;
+    max-width: 420px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+  }
+
+  .cal-sc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .cal-sc-label {
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .cal-sc-val {
+    color: #111827;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .cal-reset-btn {
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    color: #374151;
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .cal-reset-btn:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
+
+  /* Branding Footer */
+  .cal-footer-brand {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #9ca3af;
+    letter-spacing: 0.02em;
+    user-select: none;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive breakdown */
+  @media (max-width: 860px) {
+    .cal-view-slots {
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .cal-col-host, .cal-col-calendar, .cal-col-slots {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #f1f2f6;
+      padding: 14px 8px;
+    }
+    .cal-col-slots {
+      border-bottom: none;
+    }
+    .cal-slots-list {
+      max-height: 240px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    // Interactive calendar scheduling state
+    let selectedDate = new Date(2026, 9, 26); // Oct 26, 2026 as shown in reference image
+    let currentViewMonth = 9; // October (0-indexed)
+    let currentViewYear = 2026;
+    let timeFormat = '12'; // '12' or '24'
+    let selectedSlot = '9:00am';
+
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const DAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function formatDayHeader(d) {
+      const dayName = DAYS_SHORT[d.getDay()];
+      const dateNum = d.getDate();
+      let suffix = 'th';
+      if (dateNum === 1 || dateNum === 21 || dateNum === 31) suffix = 'st';
+      else if (dateNum === 2 || dateNum === 22) suffix = 'nd';
+      else if (dateNum === 3 || dateNum === 23) suffix = 'rd';
+      return `${dayName} ${dateNum}${suffix}`;
+    }
+
+    function generateSlots(fmt) {
+      const slots = [];
+      const baseHours = [9, 10, 11, 12, 13, 14, 15, 16];
+      baseHours.forEach(h => {
+        [0, 15, 30, 45].forEach(m => {
+          if (h === 16 && m > 30) return;
+          const mm = m.toString().padStart(2, '0');
+          if (fmt === '24') {
+            slots.push(`${h.toString().padStart(2, '0')}:${mm}`);
+          } else {
+            const h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+            const ampm = h >= 12 ? 'pm' : 'am';
+            slots.push(`${h12}:${mm}${ampm}`);
+          }
+        });
+      });
+      return slots;
+    }
+
+    function renderCalendar() {
+      const titleEl = document.getElementById('cal-month-title');
+      const gridEl = document.getElementById('cal-days-grid');
+      if (!titleEl || !gridEl) return;
+
+      titleEl.textContent = `${MONTHS[currentViewMonth]} ${currentViewYear}`;
+      gridEl.innerHTML = '';
+
+      const firstDay = new Date(currentViewYear, currentViewMonth, 1).getDay();
+      const daysInMonth = new Date(currentViewYear, currentViewMonth + 1, 0).getDate();
+
+      // Empty lead cells
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day-cell empty';
+        gridEl.appendChild(empty);
+      }
+
+      // Day cells
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement('button');
+        cell.type = 'button';
+        cell.className = 'cal-day-cell';
+        cell.textContent = d;
+
+        // Is it available? Weekdays in Oct 26-30, etc.
+        const dayOfWeek = new Date(currentViewYear, currentViewMonth, d).getDay();
+        const isWeekday = dayOfWeek !== 0 && dayOfWeek !== 6;
+        const isAvailable = (currentViewMonth === 9 && d >= 8 && isWeekday) || (currentViewMonth > 9 && isWeekday);
+
+        if (isAvailable) {
+          cell.classList.add('available');
+        }
+
+        if (d === 24 && currentViewMonth === 9) {
+          cell.classList.add('has-dot');
+        }
+
+        // Is it selected?
+        if (
+          selectedDate.getDate() === d &&
+          selectedDate.getMonth() === currentViewMonth &&
+          selectedDate.getFullYear() === currentViewYear
+        ) {
+          cell.classList.add('selected');
+        }
+
+        if (isAvailable) {
+          cell.addEventListener('click', () => {
+            selectedDate = new Date(currentViewYear, currentViewMonth, d);
+            renderCalendar();
+            renderSlots();
+          });
+        }
+
+        gridEl.appendChild(cell);
+      }
+
+      // If October 2026, append next month preview (Nov 1-7) to match reference image
+      if (currentViewMonth === 9 && currentViewYear === 2026) {
+        const novDivider = document.createElement('div');
+        novDivider.className = 'cal-month-divider';
+        novDivider.textContent = 'NOV';
+        gridEl.appendChild(novDivider);
+
+        // Nov 1 is Sunday
+        for (let nd = 1; nd <= 7; nd++) {
+          const ncell = document.createElement('button');
+          ncell.type = 'button';
+          ncell.className = 'cal-day-cell';
+          ncell.textContent = nd;
+          const isWk = nd >= 2 && nd <= 6;
+          if (isWk) ncell.classList.add('available');
+          ncell.addEventListener('click', () => {
+            currentViewMonth = 10;
+            selectedDate = new Date(2026, 10, nd);
+            renderCalendar();
+            renderSlots();
+          });
+          gridEl.appendChild(ncell);
+        }
+      }
+    }
+
+    function renderSlots() {
+      const labelEl = document.getElementById('cal-selected-day-label');
+      const listEl = document.getElementById('cal-slots-list');
+      if (!labelEl || !listEl) return;
+
+      labelEl.textContent = formatDayHeader(selectedDate);
+      listEl.innerHTML = '';
+
+      const slots = generateSlots(timeFormat);
+      slots.forEach(slotTime => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cal-slot-btn';
+        btn.textContent = slotTime;
+        btn.addEventListener('click', () => {
+          selectedSlot = slotTime;
+          showBookingForm();
+        });
+        listEl.appendChild(btn);
+      });
+    }
+
+    function showBookingForm() {
+      const viewSlots = document.getElementById('cal-view-slots');
+      const viewForm = document.getElementById('cal-view-form');
+      const summaryEl = document.getElementById('cal-summary-datetime');
+      const tzSelect = document.getElementById('cal-tz-select');
+
+      const tz = tzSelect ? tzSelect.value : 'Asia/Kolkata';
+      const fullDateStr = selectedDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+
+      if (summaryEl) {
+        summaryEl.textContent = `${fullDateStr} at ${selectedSlot} (${tz})`;
+      }
+
+      if (viewSlots) viewSlots.style.display = 'none';
+      if (viewForm) viewForm.style.display = 'flex';
+    }
+
+    function showSlotsView() {
+      const viewSlots = document.getElementById('cal-view-slots');
+      const viewForm = document.getElementById('cal-view-form');
+      const viewSuccess = document.getElementById('cal-view-success');
+
+      if (viewForm) viewForm.style.display = 'none';
+      if (viewSuccess) viewSuccess.style.display = 'none';
+      if (viewSlots) viewSlots.style.display = 'flex';
+    }
+
+    function initEvents() {
+      // Prev/next month
+      const prevBtn = document.getElementById('cal-prev-month');
+      const nextBtn = document.getElementById('cal-next-month');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (currentViewMonth === 0) { currentViewMonth = 11; currentViewYear--; }
+          else { currentViewMonth--; }
+          renderCalendar();
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (currentViewMonth === 11) { currentViewMonth = 0; currentViewYear++; }
+          else { currentViewMonth++; }
+          renderCalendar();
+        });
+      }
+
+      // 12h / 24h toggle
+      const fmt12 = document.getElementById('fmt-12');
+      const fmt24 = document.getElementById('fmt-24');
+      if (fmt12 && fmt24) {
+        fmt12.addEventListener('click', () => {
+          timeFormat = '12';
+          fmt12.classList.add('active');
+          fmt24.classList.remove('active');
+          renderSlots();
+        });
+        fmt24.addEventListener('click', () => {
+          timeFormat = '24';
+          fmt24.classList.add('active');
+          fmt12.classList.remove('active');
+          renderSlots();
+        });
+      }
+
+      // Back button
+      const backBtn = document.getElementById('cal-back-btn');
+      if (backBtn) {
+        backBtn.addEventListener('click', showSlotsView);
+      }
+
+      // Form submit
+      const form = document.getElementById('cal-booking-form');
+      if (form) {
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const name = document.getElementById('cal-input-name')?.value || 'Guest';
+          const email = document.getElementById('cal-input-email')?.value || 'guest@example.com';
+          const tz = document.getElementById('cal-tz-select')?.value || 'Asia/Kolkata';
+
+          const viewForm = document.getElementById('cal-view-form');
+          const viewSuccess = document.getElementById('cal-view-success');
+          const succEmail = document.getElementById('cal-success-email');
+          const succDatetime = document.getElementById('cal-success-datetime');
+
+          if (succEmail) succEmail.textContent = email;
+          if (succDatetime) {
+            const dateStr = selectedDate.toLocaleDateString('en-US', {
+              weekday: 'long',
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            });
+            succDatetime.textContent = `${dateStr} at ${selectedSlot} (${tz})`;
+          }
+
+          if (viewForm) viewForm.style.display = 'none';
+          if (viewSuccess) viewSuccess.style.display = 'flex';
+        });
+      }
+
+      // Reset button
+      const resetBtn = document.getElementById('cal-reset-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          form?.reset();
+          showSlotsView();
+        });
+      }
+    }
+
+    // Initialize
+    renderCalendar();
+    renderSlots();
+    initEvents();
+  })();
+</script>

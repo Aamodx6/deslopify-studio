@@ -1,5 +1,6 @@
 ---
-// Testimonials section with orbit animation, tweet ticker, and booking container
+// Testimonials section with orbit animation, tweet ticker, and interactive Cal booking widget
+import CalBooking from './CalBooking.astro';
 ---
 
 <section class="testimonials" id="testimonials">
@@ -98,27 +99,29 @@
             <span class="t-copy">Copy link</span>
           </div>
         </article>
+
+        <article class="tweet">
+          <div class="tweet-head">
+            <img src="/assets/avatars/tw-EndrewBiz.jpg" alt="Endrew Cruz" loading="lazy" decoding="async">
+            <div class="tweet-who"><strong>Endrew Cruz</strong><span>@EndrewBiz · <a>Follow</a></span></div>
+            <svg viewBox="0 0 24 24" class="x-logo"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </div>
+          <p class="tweet-text">how did you make the physics so good</p>
+          <div class="tweet-foot">
+            <span class="t-like"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-9.8-9.2C.6 8.6 2.6 5 6 5c2 0 3.4 1.1 4 2.2C10.6 6.1 12 5 14 5c3.4 0 5.4 3.6 3.8 6.8C19.5 16.1 12 21 12 21z"/></svg></span>
+            <span class="t-reply">Reply</span>
+            <span class="t-copy">Copy link</span>
+          </div>
+        </article>
       </div>
     </div>
   </div>
 
-  <!-- Cal booking frame -->
-  <div class="cal-frame" id="book" style="margin-top: 60px;">
+  <!-- Cal.com live interactive booking card (matches reference 1:1) -->
+  <div class="cal-frame" id="book">
     <div class="cal-mid">
-      <div class="cal-inner" style="background:#ffffff; border-radius:24px; padding:36px; text-align:center; border:1px solid #e2e4ef; box-shadow:0 8px 30px rgba(0,0,0,0.03);">
-        <h3 style="font-family:var(--jakarta); font-size:26px; font-weight:800; color:var(--ink-heading); margin-bottom:8px;">Ready to Deslopify Your Application?</h3>
-        <p style="font-size:15px; color:var(--gray); max-width:540px; margin:0 auto 24px;">Book a direct 20-minute architecture review with our principal team. Send screenshots in advance and we will review them live.</p>
-        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
-          <a class="submit-btn-primary" href="/contact-us" style="max-width:280px;">
-            Schedule Sprint Review
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a class="filter-btn" href="/pricing" style="padding:14px 24px; font-size:15px; border-radius:12px;">
-            View Detailed Plans & Deliverables
-          </a>
-        </div>
+      <div class="cal-inner">
+        <CalBooking />
       </div>
     </div>
   </div>
