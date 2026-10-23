@@ -1,7 +1,5 @@
 # Deslopify Studio — Production Digital Presence & AI Engineering Platform
 
-> Ground-up website replication, brand adaptation, and production engineering modeled after [Deslopify Studio](https://deslopify.studio/).
-
 A high-performance digital presence built with **Astro**, modern CSS Grid/Flexbox architecture, deterministic agent workflows, interactive canvas physics, and zero template bloat.
 
 ---
