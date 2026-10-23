@@ -1,0 +1,24 @@
+---
+// Metrics and Proof Bar
+const metrics = [
+  { value: "50+", label: "AI Systems Shipped" },
+  { value: "99.8%", label: "Pipeline Reliability" },
+  { value: "<450ms", label: "Median Agent Latency" },
+  { value: "$2.8M+", label: "Verified Client Savings" },
+];
+---
+
+<section style="max-width: 1100px; margin: 40px auto 60px; padding: 0 20px;">
+  <div style="background: #ffffff; border: 1px solid var(--card-gray); border-radius: 20px; padding: 28px 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; text-align: center;">
+    {metrics.map((m) => (
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <span style="font-family: var(--jakarta); font-size: clamp(28px, 4vw, 36px); font-weight: 800; color: var(--blue); letter-spacing: -0.02em;">
+          {m.value}
+        </span>
+        <span style="font-size: 13px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px;">
+          {m.label}
+        </span>
+      </div>
+    ))}
+  </div>
+</section>

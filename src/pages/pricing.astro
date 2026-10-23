@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import pricingData from '../data/pricing.json';
+---
+
+<Layout
+  title="Pricing & Subscription Plans | Deslopify Studio"
+  description="Simple, transparent pricing for every stage. Pay per screen or partner with a dedicated senior AI and design studio."
+>
+  <div class="subpage-container">
+    <div class="page-hero">
+      <span class="page-badge">Transparent Pricing</span>
+      <h1 class="page-title">
+        Simple Pricing for Every Stage.<br>
+        <span class="gradient-text">Zero Hidden Surprises.</span>
+      </h1>
+      <p class="page-subtitle">
+        Whether you need a quick 3-screen overhaul for an investor deck or ongoing multi-agent engineering, we have a plan built for you.
+      </p>
+    </div>
+
+    <!-- Tiered Pricing Cards Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 80px;">
+      {pricingData.tiers.map((tier) => (
+        <div style={`background: ${tier.popular ? '#1f1f32' : '#ffffff'}; color: ${tier.popular ? '#ffffff' : 'var(--ink)'}; border: 1px solid ${tier.popular ? '#313352' : 'var(--card-gray)'}; border-radius: 24px; padding: 40px; display: flex; flex-direction: column; height: 100%; position: relative; box-shadow: ${tier.popular ? '0 20px 50px rgba(38,46,242,0.15)' : '0 4px 16px rgba(0,0,0,0.02)'};`}>
+          {tier.popular && (
+            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #262ef2, #7928ca); color: #ffffff; padding: 4px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 4px 12px rgba(38,46,242,0.3);">
+              {tier.badge}
+            </div>
+          )}
+
+          <div style="margin-bottom: 24px;">
+            <h3 style={`font-family: var(--jakarta); font-size: 24px; font-weight: 800; color: ${tier.popular ? '#ffffff' : 'var(--ink-heading)'}; margin-bottom: 6px;`}>
+              {tier.name}
+            </h3>
+            <p style={`font-size: 14px; line-height: 1.5; color: ${tier.popular ? '#b4b9cb' : 'var(--gray)'};`}>
+              {tier.subtitle}
+            </p>
+          </div>
+
+          <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(120,120,150,0.2);">
+            <div style="display: flex; align-items: baseline; gap: 6px;">
+              <span style={`font-family: var(--jakarta); font-size: 44px; font-weight: 800; color: ${tier.popular ? '#ffffff' : 'var(--ink-heading)'};`}>
+                ${tier.priceMonthly.toLocaleString()}
+              </span>
+              <span style={`font-size: 15px; font-weight: 600; color: ${tier.popular ? '#9fa6bf' : 'var(--text-muted)'};`}>
+                {tier.priceUnit}
+              </span>
+            </div>
+            <p style={`font-size: 12px; font-weight: 600; color: ${tier.popular ? '#6e73fa' : 'var(--blue)'}; margin-top: 4px;`}>
+              Delivery: {tier.turnaround}
+            </p>
+          </div>
+
+          <div style="margin-bottom: 32px; flex-grow: 1;">
+            <p style={`font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: ${tier.popular ? '#8990ab' : 'var(--text-muted)'}; margin-bottom: 16px;`}>
+              What is included:
+            </p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+              {tier.features.map((feat) => (
+                <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5;">
+                  <span style={`color: ${tier.popular ? '#6e73fa' : 'var(--blue)'}; font-weight: 800;`}>✓</span>
+                  <span style={`color: ${tier.popular ? '#e0e3f0' : 'var(--ink)'};`}>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div style="margin-top: auto;">
+            <a
+              class={tier.popular ? 'submit-btn-primary' : 'filter-btn active'}
+              href={tier.ctaHref}
+              style={`width: 100%; text-align: center; justify-content: center; padding: 14px; font-size: 15px; border-radius: 12px; display: inline-flex;`}
+            >
+              {tier.ctaText} →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Comparison Table -->
+    <div style="background: #ffffff; border: 1px solid var(--card-gray); border-radius: 24px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); margin-bottom: 80px; overflow-x: auto;">
+      <h2 style="font-family: var(--jakarta); font-size: 26px; font-weight: 800; color: var(--ink-heading); margin-bottom: 24px;">
+        Detailed Deliverables Comparison
+      </h2>
+
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+        <thead>
+          <tr style="border-bottom: 2px solid #eef0f7;">
+            <th style="padding: 16px 12px; color: var(--gray); font-weight: 600;">Deliverable / Capability</th>
+            <th style="padding: 16px 12px; font-weight: 700; color: var(--ink);">Pay Per Screen</th>
+            <th style="padding: 16px 12px; font-weight: 700; color: var(--blue);">Studio Retainer</th>
+            <th style="padding: 16px 12px; font-weight: 700; color: var(--ink);">Enterprise Architecture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #f2f3f8;">
+            <td style="padding: 14px 12px; color: var(--ink); font-weight: 600;">Figma Tokens & Design System</td>
+            <td style="padding: 14px 12px;">✓ Included</td>
+            <td style="padding: 14px 12px; color: var(--blue); font-weight: 700;">✓ Full Custom System</td>
+            <td style="padding: 14px 12px;">✓ Multi-Brand System</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #f2f3f8;">
+            <td style="padding: 14px 12px; color: var(--ink); font-weight: 600;">Claude-Coded Mobile Prototype</td>
+            <td style="padding: 14px 12px;">✓ Included</td>
+            <td style="padding: 14px 12px; color: var(--blue); font-weight: 700;">✓ Included</td>
+            <td style="padding: 14px 12px;">✓ Included</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #f2f3f8;">
+            <td style="padding: 14px 12px; color: var(--ink); font-weight: 600;">Autonomous AI Backend Workflows</td>
+            <td style="padding: 14px 12px; color: var(--text-muted);">-</td>
+            <td style="padding: 14px 12px; color: var(--blue); font-weight: 700;">✓ Included</td>
+            <td style="padding: 14px 12px;">✓ Multi-Agent Swarms</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #f2f3f8;">
+            <td style="padding: 14px 12px; color: var(--ink); font-weight: 600;">Turnaround Cadence</td>
+            <td style="padding: 14px 12px;">3-5 Days</td>
+            <td style="padding: 14px 12px; color: var(--blue); font-weight: 700;">Every 48 Hours</td>
+            <td style="padding: 14px 12px;">Dedicated Sprint Queue</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #f2f3f8;">
+            <td style="padding: 14px 12px; color: var(--ink); font-weight: 600;">Sub-second Latency Caching</td>
+            <td style="padding: 14px 12px; color: var(--text-muted);">-</td>
+            <td style="padding: 14px 12px; color: var(--blue); font-weight: 700;">✓ Included</td>
+            <td style="padding: 14px 12px;">✓ Included</td>
+          </tr>
+          <tr>
+            <td style="padding: 14px 12px; color: var(--ink); font-weight: 600;">Pause or Cancel Anytime</td>
+            <td style="padding: 14px 12px;">N/A (One-off)</td>
+            <td style="padding: 14px 12px; color: var(--blue); font-weight: 700;">✓ Anytime</td>
+            <td style="padding: 14px 12px;">Flexible Terms</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pricing FAQs -->
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h3 style="font-family: var(--jakarta); font-size: 24px; font-weight: 800; color: var(--ink-heading); text-align: center; margin-bottom: 32px;">
+        Frequently Asked Pricing Questions
+      </h3>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        {pricingData.faq.map((item) => (
+          <details class="faq-item" style="background: #ffffff; border: 1px solid var(--card-gray); border-radius: 16px; padding: 20px 24px;">
+            <summary style="font-family: var(--jakarta); font-size: 16px; font-weight: 700; color: var(--ink-heading); cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none;">
+              <span>{item.q}</span>
+              <span class="faq-icon" style="color: var(--blue); font-size: 20px;">+</span>
+            </summary>
+            <p style="font-size: 14px; line-height: 1.65; color: var(--gray); margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f1f8;">
+              {item.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

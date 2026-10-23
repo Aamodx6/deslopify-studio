@@ -1,0 +1,81 @@
+---
+import servicesData from '../data/services.json';
+---
+
+<section class="services-sec" id="services" style="max-width: 1200px; margin: 80px auto; padding: 0 24px;">
+  <div style="text-align: center; max-width: 700px; margin: 0 auto 40px;">
+    <span class="tag">
+      <img src="/assets/badge-features.png" alt="" width="14" height="14" />
+      Core Capabilities
+    </span>
+    <h2 style="font-family: var(--jakarta); font-size: clamp(32px, 4.5vw, 48px); font-weight: 800; color: var(--ink-heading); letter-spacing: -0.02em; margin-top: 14px;">
+      Practical AI Systems.<br><span class="blue">Engineered to Convert.</span>
+    </h2>
+    <p style="font-size: 16px; color: var(--gray); margin-top: 12px; line-height: 1.6;">
+      We bridge the gap between fragile AI proof-of-concepts and bulletproof, production-grade applications that scale.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    {servicesData.map((service) => (
+      <div class="service-card">
+        <div class="service-icon-box">
+          {service.icon === 'workflow' && (
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="6" height="6" rx="1" />
+              <rect x="16" y="3" width="6" height="6" rx="1" />
+              <rect x="9" y="15" width="6" height="6" rx="1" />
+              <path d="M5 9v3a2 2 0 0 0 2 2h5m0 0h5a2 2 0 0 0 2-2V9" />
+            </svg>
+          )}
+          {service.icon === 'support' && (
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          )}
+          {service.icon === 'document' && (
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+          )}
+          {service.icon === 'modernize' && (
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+          )}
+          {service.icon === 'agentic' && (
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          )}
+        </div>
+
+        <h3 class="service-title">{service.title}</h3>
+        <p class="service-desc">{service.shortDescription}</p>
+
+        <div class="capability-pills">
+          {service.capabilities.map((pill) => (
+            <span class="cap-pill">{pill}</span>
+          ))}
+        </div>
+
+        <div class="service-card-footer">
+          <span class="service-stat-text">{service.stat}</span>
+          <a class="service-cta-link" href="/services-detail">
+            Architecture
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

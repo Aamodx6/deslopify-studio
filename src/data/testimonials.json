@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Andrew Biz",
+    "handle": "@EndrewBiz",
+    "role": "Founder, SaaSForge",
+    "avatar": "/assets/avatars/tw-EndrewBiz.jpg",
+    "content": "Deslopify took our messy MVP and turned it into an investor-ready beast. Raised our Series A 3 weeks after shipping the new app.",
+    "highlight": "Raised Series A in 3 weeks"
+  },
+  {
+    "name": "Faraz Khan",
+    "handle": "@FKThedesigner",
+    "role": "Design Director, HyperScale",
+    "avatar": "/assets/avatars/tw-FKThedesigner.jpg",
+    "content": "The attention to typography, micro-interactions, and AI integration is unmatched. They don't just redesign screens; they re-engineer your core product.",
+    "highlight": "Unmatched attention to craft"
+  },
+  {
+    "name": "LottieFiles Team",
+    "handle": "@LottieFiles",
+    "role": "Motion Ecosystem",
+    "avatar": "/assets/avatars/tw-LottieFiles.jpg",
+    "content": "Clean code, zero template bloat, and fluid 60fps animations. This is how modern web applications should be built.",
+    "highlight": "Fluid 60fps performance"
+  },
+  {
+    "name": "Udhayya Kumar",
+    "handle": "@Udhayya_",
+    "role": "CTO, Indus Financial",
+    "avatar": "/assets/avatars/tw-Udhayya_.jpg",
+    "content": "We had 4 different agency proposals that quoted 6 months and $120k. Deslopify shipped our full autonomous KYC workflow in 14 days.",
+    "highlight": "Shipped in 14 days"
+  }
+]

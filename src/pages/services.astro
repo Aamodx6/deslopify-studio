@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import servicesData from '../data/services.json';
+---
+
+<Layout
+  title="Our Services & AI Solutions | Deslopify Studio"
+  description="Explore our full catalog of practical AI engineering services: workflow automation, support agents, document intelligence, and app modernization."
+>
+  <div class="subpage-container">
+    <div class="page-hero">
+      <span class="page-badge">Comprehensive Offerings</span>
+      <h1 class="page-title">
+        Production AI Engineering.<br>
+        <span class="gradient-text">Zero Compromises on Craft.</span>
+      </h1>
+      <p class="page-subtitle">
+        We specialize in transforming complex, non-deterministic language models into robust, reliable, sub-second enterprise applications.
+      </p>
+    </div>
+
+    <!-- Detailed Services Breakdown -->
+    <div style="display: flex; flex-direction: column; gap: 40px; margin-bottom: 80px;">
+      {servicesData.map((service, index) => (
+        <div style="background: #ffffff; border: 1px solid var(--card-gray); border-radius: 24px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center;" class="service-detail-row">
+          <div>
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+              <span style="font-family: var(--jakarta); font-size: 14px; font-weight: 800; color: var(--blue); background: #eef1ff; padding: 6px 12px; border-radius: 999px;">
+                0{index + 1}
+              </span>
+              <h2 style="font-family: var(--jakarta); font-size: 26px; font-weight: 800; color: var(--ink-heading); letter-spacing: -0.02em;">
+                {service.title}
+              </h2>
+            </div>
+
+            <p style="font-size: 16px; line-height: 1.65; color: var(--gray); margin-bottom: 24px;">
+              {service.shortDescription}
+            </p>
+
+            <h4 style="font-family: var(--jakarta); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 12px;">
+              Key Architecture Deliverables:
+            </h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+              {service.deliverables.map((item) => (
+                <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--ink);">
+                  <span style="color: var(--blue); font-weight: 700;">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="capability-pills">
+              {service.capabilities.map((cap) => (
+                <span class="cap-pill">{cap}</span>
+              ))}
+            </div>
+          </div>
+
+          <div style="background: #f8f9fe; border: 1px solid #e7ebf7; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+            <div>
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+                Verified Performance Metric
+              </span>
+              <p style="font-family: var(--jakarta); font-size: 24px; font-weight: 800; color: var(--blue); margin-top: 6px; margin-bottom: 24px;">
+                {service.stat}
+              </p>
+
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+                Integrated Technologies
+              </span>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
+                {service.techStack.map((tech) => (
+                  <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; background: #ffffff; border: 1px solid #dcdfe8; border-radius: 8px; color: var(--ink);">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #e8ecf6;">
+              <a class="submit-btn-primary" href={`/contact-us?service=${service.id}`} style="padding: 12px 20px; font-size: 14px;">
+                Inquire About This Solution →
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom link to deep dive -->
+    <div style="text-align: center; background: #f2f4fc; border-radius: 20px; padding: 36px;">
+      <h3 style="font-family: var(--jakarta); font-size: 22px; font-weight: 800; color: var(--ink-heading); margin-bottom: 8px;">Want a technical deep dive into our stack?</h3>
+      <p style="font-size: 15px; color: var(--gray); margin-bottom: 20px;">Read our detailed architectural specs, latency budgets, and security isolation layers.</p>
+      <a class="filter-btn active" href="/services-detail" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;">
+        Read Architecture & Integration Deep Dive →
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @media (max-width: 900px) {
+    .service-detail-row {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

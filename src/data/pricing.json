@@ -1,0 +1,86 @@
+{
+  "currency": "$",
+  "tiers": [
+    {
+      "id": "pay-per-screen",
+      "name": "Pay Per Screen / Sprint",
+      "badge": "For Targeted Fixes",
+      "priceMonthly": 149,
+      "priceUnit": "/ screen",
+      "subtitle": "Perfect for redesigning key bottlenecks, investor decks, or critical conversion screens.",
+      "turnaround": "3 to 5 business days",
+      "features": [
+        "1–10 screens redesigned down to the pixel",
+        "Interactive Claude-coded prototype for phone/web",
+        "Complete Figma design tokens & asset kit",
+        "Deterministic responsive layout engineering",
+        "One revision round per screen included",
+        "Direct Slack communication channel"
+      ],
+      "popular": false,
+      "ctaText": "Order Screens",
+      "ctaHref": "/contact-us?plan=pay-per-screen"
+    },
+    {
+      "id": "studio-subscription",
+      "name": "Full AI & Design Retainer",
+      "badge": "Most Popular",
+      "priceMonthly": 4950,
+      "priceAnnual": 4200,
+      "priceUnit": "/ month",
+      "subtitle": "Your dedicated senior AI engineer and product designer on demand. One request at a time.",
+      "turnaround": "Continuous delivery every 48 hours",
+      "features": [
+        "Unlimited screen redesigns & prototype requests",
+        "Full AI workflow automation & agentic pipelines",
+        "Custom LLM fine-tuning, RAG & API integrations",
+        "Production Astro / Next.js / React Native code",
+        "Sub-second latency & evaluation benchmarks",
+        "Pause or cancel anytime with zero lock-in",
+        "Private Slack channel & async Loom walk-throughs"
+      ],
+      "popular": true,
+      "ctaText": "Start Subscription",
+      "ctaHref": "/contact-us?plan=studio-subscription"
+    },
+    {
+      "id": "enterprise-architecture",
+      "name": "Enterprise AI Systems",
+      "badge": "Custom Scale",
+      "priceMonthly": 9800,
+      "priceAnnual": 8500,
+      "priceUnit": "/ month",
+      "subtitle": "For organizations requiring custom on-premise LLMs, strict SOC2 compliance, and multi-agent systems.",
+      "turnaround": "Dedicated sprint team",
+      "features": [
+        "Everything in Studio Retainer with parallel queues",
+        "SOC2 and HIPAA compliant data pipeline architecture",
+        "Self-hosted model deployments (vLLM, Ollama, Bedrock)",
+        "Automated multimodal document processing pipelines",
+        "Dedicated senior solutions architect & SLA guarantees",
+        "Custom ERP, CRM & banking core integrations"
+      ],
+      "popular": false,
+      "ctaText": "Book Architecture Call",
+      "ctaHref": "/contact-us?plan=enterprise"
+    }
+  ],
+  "faq": [
+    {
+      "q": "How fast do I get my redesigned screens and code?",
+      "a": "For Pay Per Screen, typical turnaround is 3 to 5 business days. On our monthly studio retainer, we deliver updates every 48 to 72 hours until the entire application is completely transformed."
+    },
+    {
+      "q": "What formats do you deliver?",
+      "a": "Every delivery includes pixel-perfect Figma source files with organized design tokens, plus a live interactive Claude-coded prototype or production-ready Astro/Next.js/React components ready to merge."
+    },
+    {
+      "q": "Can I pause or cancel my subscription?",
+      "a": "Yes! Billing cycles are 31 days. If you only have two weeks of work, use your subscription for 14 days, pause it, and resume whenever your next sprint is ready."
+    },
+    {
+      "q": "How do you handle complex backend AI integrations?",
+      "a": "We specialize in deterministic LLM orchestration. We build using Python, FastAPI, LangChain/LangGraph, Pinecone, and Anthropic Claude APIs with full evaluation suites, error fallbacks, and sub-second caching."
+    }
+  ]
+}

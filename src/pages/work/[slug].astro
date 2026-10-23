@@ -1,0 +1,141 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import workData from '../../data/work.json';
+
+export async function getStaticPaths() {
+  return workData.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout
+  title={`${project.title} | Case Study | Deslopify Studio`}
+  description={project.tagline}
+>
+  <div class="subpage-container">
+    <!-- Breadcrumb -->
+    <div style="margin-bottom: 24px;">
+      <a href="/work" style="font-size: 14px; font-weight: 600; color: var(--blue); display: inline-flex; align-items: center; gap: 6px;">
+        ← Back to All Case Studies
+      </a>
+    </div>
+
+    <!-- Case Study Hero -->
+    <div class="case-study-hero">
+      <span class="page-badge">{project.category}</span>
+      <h1 class="page-title" style="text-align: left; margin-bottom: 12px;">
+        {project.title}
+      </h1>
+      <p style="font-size: 20px; line-height: 1.5; color: var(--gray); max-width: 800px;">
+        {project.tagline}
+      </p>
+
+      <!-- Key Metadata Bar -->
+      <div class="case-study-meta-bar">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Client</span>
+          <span class="cs-meta-value">{project.client}</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Category</span>
+          <span class="cs-meta-value">{project.category}</span>
+        </div>
+        {project.metrics.map((m) => (
+          <div class="cs-meta-item">
+            <span class="cs-meta-label">{m.label}</span>
+            <span class="cs-meta-value" style="color: var(--blue);">{m.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Side-by-Side Screen Transformation -->
+    <div class="case-study-showcase-box">
+      <span class="tag">Visual Transformation</span>
+      <h3 style="font-family: var(--jakarta); font-size: 24px; font-weight: 800; color: var(--ink-heading); margin-top: 10px;">
+        From Messy Legacy Screen to Production Polish
+      </h3>
+
+      <div class="cs-side-by-side">
+        <div class="cs-screen-card">
+          <span class="cs-screen-tag old">Legacy Slop (Before)</span>
+          <img src={project.beforeScreen} alt={`${project.title} Before`} loading="lazy" />
+        </div>
+        <div class="cs-screen-card">
+          <span class="cs-screen-tag new">Deslopified Interface (After)</span>
+          <img src={project.afterScreen} alt={`${project.title} After`} loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Body Content & Sidebar Grid -->
+    <div class="case-study-body-grid">
+      <div class="cs-main-content">
+        <h3>Executive Overview</h3>
+        <p>{project.overview}</p>
+
+        <h3>The Architectural Challenge</h3>
+        <p>{project.challenge}</p>
+
+        <h3>Our Engineered Solution</h3>
+        <p>{project.architecture}</p>
+
+        <!-- Client Testimonial Callout -->
+        <div style="background: #f8f9fe; border-left: 4px solid var(--blue); padding: 24px 28px; border-radius: 0 16px 16px 0; margin: 40px 0;">
+          <p style="font-size: 17px; font-style: italic; color: var(--ink); line-height: 1.6; margin-bottom: 12px;">
+            "{project.testimonial.quote}"
+          </p>
+          <div style="font-size: 14px; font-weight: 700; color: var(--ink-heading);">
+            {project.testimonial.author}
+            <span style="font-weight: 400; color: var(--gray);">— {project.testimonial.role}</span>
+          </div>
+        </div>
+
+        <!-- Gallery Showcase -->
+        {project.gallery && project.gallery.length > 0 && (
+          <div>
+            <h3>Interface Gallery</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+              {project.gallery.map((imgUrl, idx) => (
+                <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--card-gray); background: #f2f3f8;">
+                  <img src={imgUrl} alt={`${project.title} Screen ${idx + 1}`} loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sticky Sidebar -->
+      <div>
+        <div class="cs-sidebar-card">
+          <h4>Technologies Used</h4>
+          <div class="tech-pill-list">
+            {project.stack.map((item) => (
+              <span class="cap-pill">{item}</span>
+            ))}
+          </div>
+
+          <h4 style="margin-top: 24px;">Project Impact</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+            {project.metrics.map((m) => (
+              <li style="font-size: 13px; color: var(--gray);">
+                <strong style="color: var(--ink-heading);">{m.label}:</strong> {m.value}
+              </li>
+            ))}
+          </ul>
+
+          <div style="padding-top: 20px; border-top: 1px solid #f0f1f8;">
+            <a class="submit-btn-primary" href="/contact-us">
+              Build Similar Solution
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

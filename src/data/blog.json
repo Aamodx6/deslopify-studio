@@ -1,0 +1,61 @@
+[
+  {
+    "slug": "from-messy-prototypes-to-production",
+    "title": "From Messy Claude Prototypes to Production-Grade Systems",
+    "excerpt": "Why 90% of AI proof-of-concepts stall in demo mode, and the exact architectural blueprint to harden them with deterministic safety, caching, and sub-second latency.",
+    "date": "October 20, 2026",
+    "readTime": "6 min read",
+    "category": "Architecture",
+    "author": {
+      "name": "Alex Mercer",
+      "role": "Lead Systems Architect",
+      "avatar": "/assets/avatars/a96-32.jpg"
+    },
+    "content": [
+      "Every product team today can cobble together a demo using Claude or GPT-4 in a weekend. The user types a prompt, an LLM generates a response, and leadership applauds. But when real users throw erratic inputs, broken network connections, and edge cases at it, the fragility becomes catastrophic.",
+      "At Deslopify Studio, our core mandate is taking these raw proof-of-concepts and transforming them into rock-solid enterprise software. This begins with isolating non-deterministic model calls behind strict Pydantic schemas and semantic validation gates.",
+      "Rule 1: Never let raw LLM output touch your database or UI. Always enforce structured decoding with schema validation. If the output fails validation, execute a fast repair pass or fall back to a deterministic baseline.",
+      "Rule 2: Semantic caching is not optional. Up to 40% of queries across enterprise support and internal search are functionally duplicate. By maintaining an in-memory vector cache with Redis, we drop median response times from 2.4 seconds to 85 milliseconds while slashing API spend.",
+      "Rule 3: Design systems matter. A brilliant AI agent wrapped in an ugly, unresponsive interface looks like a toy. When paired with instant optimistic UI updates and micro-interactions, users experience the intelligence as truly magical."
+    ]
+  },
+  {
+    "slug": "building-subsecond-support-agents",
+    "title": "Building Context-Aware Support Agents with Sub-Second Latency",
+    "excerpt": "How we achieved a 410ms median time-to-first-token for customer support agents with dynamic tool execution, hybrid RAG, and streaming response trees.",
+    "date": "October 14, 2026",
+    "readTime": "8 min read",
+    "category": "Engineering",
+    "author": {
+      "name": "Elena Rostova",
+      "role": "Principal AI Engineer",
+      "avatar": "/assets/avatars/a96-47.jpg"
+    },
+    "content": [
+      "In conversational AI, latency is the difference between an assistant that feels like a responsive human and one that feels like a frustrating automated phone menu.",
+      "When we engineered the Hush audio assistant, our target was simple: the user must see the first word of the answer within 500 milliseconds of pressing enter.",
+      "We dismantled the conventional RAG pipeline. Instead of performing slow synchronous vector searches on the entire question, we run speculative intent classification in parallel with query embedding generation.",
+      "By streaming token chunks directly over WebSockets while executing background database lookups for warranty records, the UI begins rendering the warm, conversational intro immediately while the backend hydrates the specific order metadata.",
+      "The result? 78.4% of customer inquiries are resolved completely autonomously, and customer satisfaction ratings exceeded our human benchmark."
+    ]
+  },
+  {
+    "slug": "the-death-of-software-slop",
+    "title": "The Death of Software Slop: Why Craft and Determinism Win",
+    "excerpt": "The internet is flooded with generic AI-generated boilerplates and brittle templates. Here is why the next generation of billion-dollar companies will be defined by handcrafted polish.",
+    "date": "October 02, 2026",
+    "readTime": "5 min read",
+    "category": "Design & Craft",
+    "author": {
+      "name": "Marcus Vance",
+      "role": "Creative Director",
+      "avatar": "/assets/avatars/a96-12.jpg"
+    },
+    "content": [
+      "We are currently living through the peak era of 'software slop'—hundreds of nearly identical SaaS products built from the same generic component kits, generic copywriting, and uncurated AI prompts.",
+      "Software slop repels high-value clients and investors. High-growth buyers look for signs of uncompromising obsession: 60fps animations, instantaneous keyboard shortcuts, zero layout shifts, and deep domain context.",
+      "Deslopify exists as the antidote to software slop. When we take on a product, we tear down legacy float layouts, fix broken contrast ratios, craft bespoke micro-interactions, and wrap proven AI pipelines in world-class design systems.",
+      "Polish is not cosmetic decoration. Polish is the ultimate proxy for engineering rigor. When a founder cares enough to make every single screen feel weighted and intentional, customers know their data is safe."
+    ]
+  }
+]
