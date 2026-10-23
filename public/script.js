@@ -9,6 +9,7 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
    <768px: zoom off, real mobile layout via the media queries in styles.css. */
 (() => {
   const canvas = document.querySelector('.canvas');
+  if (!canvas) return;
   const fit = () => {
     /* innerWidth matches CSS media queries (includes any scrollbar);
        clientWidth is what's actually visible — sizing from innerWidth made the
@@ -403,8 +404,8 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
 (() => {
   const section = document.querySelector('.process');
   const sticky = document.querySelector('.process-sticky');
-  if (!section || !sticky) return;
   const stage = document.querySelector('.proc-stage');
+  if (!section || !sticky || !stage) return;
   const pills = [...document.querySelectorAll('.proc-pill')];
   const thumb = document.querySelector('.proc-thumb');
   const heads = [...document.querySelectorAll('.proc-h')];
@@ -578,7 +579,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
   const sticky = document.querySelector('.intelligence-sticky');
   const wave = document.querySelector('.ai-wave');
   const iphone = document.querySelector('.iphone');
-  if (!section || !sticky || !wave) return;
+  if (!section || !sticky || !wave || !iphone) return;
 
   // real mockup dropped in assets/? then hide the CSS bezel
   const frameImg = document.querySelector('.iphone-frame');
@@ -710,13 +711,13 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
 /* ============ 7c. Pricing configurator ============ */
 (() => {
   const slider = document.getElementById('cfg-slider');
-  if (!slider) return;
   const knob = document.getElementById('cfg-knob');
   const label = document.getElementById('cfg-label');
   const priceEl = document.getElementById('cfg-price');
   const urgentInput = document.getElementById('cfg-urgent-input');
   const urgentWrap = document.querySelector('.cfg-urgent');
   const deliveryChip = document.getElementById('cfg-delivery');
+  if (!slider || !knob || !label || !priceEl || !urgentInput || !urgentWrap || !deliveryChip) return;
   const dots = [...slider.querySelectorAll('.cfg-dot')];
 
   const TIERS = [
@@ -786,7 +787,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
   const section = document.querySelector('.unfold');
   const sticky = document.querySelector('.unfold-sticky');
   const grid = document.getElementById('unfold-grid');
-  if (!section || !grid) return;
+  if (!section || !grid || !sticky) return;
   const tiles = [...grid.children].map(t => ({
     el: t,
     s: parseFloat(t.dataset.s),
@@ -846,8 +847,8 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
 (() => {
   const t = document.getElementById('sub-toggle');
   if (!t) return;
-  const opts = [...t.querySelectorAll('.sub-opt')];
-  const thumb = t.querySelector('.sub-thumb');
+  const opts = [...t.querySelectorAll('.sub-opt, .st-opt')];
+  const thumb = t.querySelector('.sub-thumb, .sub-toggle-thumb');
   const price = document.getElementById('sub-price');
   const num = document.getElementById('sub-price-num');
   const suffix = document.getElementById('sub-price-suffix');
@@ -856,6 +857,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
     weekly:  { n: '1,900', s: ' / week' },
   };
   const move = (btn, instant) => {
+    if (!thumb || !btn) return;
     if (instant) thumb.style.transition = 'none';
     thumb.style.left = btn.offsetLeft + 'px';
     thumb.style.width = btn.offsetWidth + 'px';
@@ -865,14 +867,22 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
     if (o.classList.contains('active')) return;
     opts.forEach(q => q.classList.toggle('active', q === o));
     move(o);
-    const p = PLANS[o.dataset.plan];
-    num.textContent = p.n;
-    suffix.textContent = p.s;
-    price.classList.remove('bump');
-    void price.offsetWidth;
-    price.classList.add('bump');
+    const planKey = o.dataset.plan || o.dataset.cadence;
+    const p = PLANS[planKey];
+    if (p) {
+      if (num) num.textContent = p.n;
+      if (suffix) suffix.textContent = p.s;
+    }
+    if (price) {
+      price.classList.remove('bump');
+      void price.offsetWidth;
+      price.classList.add('bump');
+    }
   }));
-  const init = () => move(t.querySelector('.sub-opt.active'), true);
+  const init = () => {
+    const active = t.querySelector('.sub-opt.active, .st-opt.active');
+    if (active) move(active, true);
+  };
   init();
   window.addEventListener('load', init);
   window.addEventListener('resize', init);
@@ -891,6 +901,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
   const dropBtn = document.getElementById('jar-drop');
   const note = document.getElementById('jar-note');
   const ctx = canvas.getContext('2d');
+  if (!stage || !picker || !dropBtn || !note || !ctx) return;
 
   /* jar design space 377x356; canvas is 2x for retina */
   const SCALE = 2;
@@ -906,7 +917,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
   ];
   const imgs = CHARS.map((c, i) => {
     const im = new Image();
-    im.src = 'assets/marbles/c' + i + '.svg';
+    im.src = '/assets/marbles/c' + i + '.svg';
     return im;
   });
 
@@ -1103,7 +1114,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
     b.setAttribute('role', 'radio');
     b.setAttribute('aria-label', c.name);
     b.title = c.name;
-    b.innerHTML = '<img src="assets/marbles/c' + i + '.svg" alt="">';
+    b.innerHTML = '<img src="/assets/marbles/c' + i + '.svg" alt="">';
     b.addEventListener('click', () => {
       picked = i;
       picker.querySelectorAll('.jar-pick').forEach((el, j) => el.classList.toggle('on', j === i));
@@ -1321,10 +1332,11 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
 (() => {
   const footer = document.querySelector('.footer-v2');
   const canvas = footer && footer.querySelector('.rain-canvas');
-  if (!canvas || STATIC || REDUCED) return;
+  if (!canvas || !footer || STATIC || REDUCED) return;
   const ctx = canvas.getContext('2d');
   const cover = document.querySelector('.page-cover');
   const stage = document.getElementById('jar-stage');
+  if (!ctx || !stage) return;
   const DPR = Math.min(2, window.devicePixelRatio || 1);
   let W = 0, H = 0, capY = 0, capL = 0, capR = 0, shoY = 0, bodyL = 0, bodyR = 0, groundY = 0;
 
@@ -1474,7 +1486,19 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
   const f = document.querySelector('.footer-v2');
   const cover = document.querySelector('.page-cover');
   if (!f || !cover) return;
-  const sync = () => { cover.style.marginBottom = f.offsetHeight + 'px'; };
+  const sync = () => {
+    const isMobile = window.innerWidth < 768;
+    const fits = window.innerHeight >= f.offsetHeight;
+    if (isMobile || !fits) {
+      cover.style.marginBottom = '0px';
+      f.style.position = 'relative';
+      f.style.zIndex = '2';
+    } else {
+      cover.style.marginBottom = f.offsetHeight + 'px';
+      f.style.position = 'fixed';
+      f.style.zIndex = '1';
+    }
+  };
   window.addEventListener('resize', sync);
   window.addEventListener('load', sync);
   sync();

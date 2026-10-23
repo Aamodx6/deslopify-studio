@@ -47,10 +47,12 @@ const currentPath = Astro.url.pathname;
     <!-- Fixed Navigation Header -->
     <Header currentPath={currentPath} />
 
-    <!-- Page Content Slot -->
-    <main>
-      <slot />
-    </main>
+    <!-- Page Content Slot wrapped in page-cover for curtain-reveal footer -->
+    <div class="page-cover">
+      <main>
+        <slot />
+      </main>
+    </div>
 
     <!-- Global Footer -->
     <Footer />

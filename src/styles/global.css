@@ -804,6 +804,17 @@ textarea.form-control {
 }
 
 /* ============================================================
+   Page Cover & Curtain-Reveal Layout Architecture
+   ============================================================ */
+.page-cover {
+  position: relative;
+  z-index: 2;
+  background: var(--bg, #ffffff);
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ============================================================
    Mobile Breakpoints & Responsiveness
    ============================================================ */
 @media (max-width: 900px) {
@@ -822,6 +833,15 @@ textarea.form-control {
 }
 
 @media (max-width: 767px) {
+  .page-cover {
+    margin-bottom: 0 !important;
+  }
+  .footer-v2 {
+    position: relative !important;
+    bottom: auto !important;
+    z-index: 2 !important;
+    padding: 60px 16px 30px !important;
+  }
   .subpage-container {
     padding: 100px 16px 60px;
   }

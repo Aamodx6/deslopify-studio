@@ -10,10 +10,14 @@ const inlineConfig = {
   output: 'static'
 };
 
+console.log('Resolving config...');
 const { userConfig, astroConfig } = await resolveConfig(inlineConfig, 'build');
+console.log('Loading logger...');
 const logger = await loadOrCreateNodeLogger(astroConfig, inlineConfig);
+console.log('Creating settings...');
 const settings = await createSettings(astroConfig, undefined, fileURLToPath(astroConfig.root));
 
+console.log('Creating AstroBuilder...');
 const builder = new AstroBuilder(settings, {
   logger,
   mode: 'production',
@@ -21,4 +25,7 @@ const builder = new AstroBuilder(settings, {
   force: false
 });
 
+console.log('Starting builder.run()...');
 await builder.run();
+console.log('Build complete!');
+process.exit(0);
