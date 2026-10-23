@@ -1313,7 +1313,7 @@ document.querySelectorAll('.ticker:not(.ticker-gray)').forEach(ticker => {
       v.removeAttribute('data-vsrc');
       /* the still behind the video has its own baked fade; hide it while
          the video plays or the two fades stack into a visible tone step */
-      v.addEventListener('playing', () => v.closest('.plan-art').classList.add('has-video'), { once: true });
+      v.addEventListener('playing', () => v.closest('.plan-art')?.classList.add('has-video'), { once: true });
       v.play().catch(() => {});
     });
   });
